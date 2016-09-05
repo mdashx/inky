@@ -1,12 +1,12 @@
 - hosts: inky
-  remote_user: vagrant
+  remote_user: tom
   become: yes
   become_user: root
   tasks:
     - name: test connection
       ping:
-    # - name: add apt repos (emacs, docker, etc)
-    #   apt_repository: repo='deb http://ppa.launchpad.net/ubuntu-elisp/ppa/ubuntu trusty main' state=present
+    - name: add apt repos (emacs, docker, etc)
+      apt_repository: repo='deb http://ppa.launchpad.net/ubuntu-elisp/ppa/ubuntu trusty main' state=present
     # - name: apt-get update and apt-get upgrade
     #   apt:  update_cache=yes upgrade=safe
     - name: add main packages (git, pip, nginx, emacs, etc.)
@@ -20,11 +20,27 @@
         - postgresql-client-common
         - postgresql-client
         - emacs-snapshot
+    # Copying SSH key so I can run Ansible from command line in addition to running from Vagrant
     - name: copy SSH pubkey to 'vagrant' user's authorized keys
       copy: src=/{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub dest=/home/vagrant/.ssh/authorized_keys2 owner=vagrant group=vagrant mode=0644
+    # The username should definitely be a variable
     - name: create user 'tom'
-      user: name=tom
+      user: name=tom generate_ssh_key=yes
+    - name: install .bashrc
+      become: yes
+      become_user: tom
+      copy: src=./bashrc.sh dest=/home/tom/.bashrc
+    - name: symbolic links to synced directories
+      file: src=/synced dest=/home/tom/work state=link
+      become: yes
+      become_user: tom
+    - name: install Emacs config
+      git:  repo=https://github.com/mdashx/myemacs.git dest=/home/tom/.emacs.d/
+      become: yes
+      become_user: tom
+
 
     # I should also copy in a deployment key here? Or maybe not, since that
     # should be project specific
     # I should install my .bashrc, pull in Emacs config, install my $HOME/bin, etc.
+    # Setup Git username, etc.
