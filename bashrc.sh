@@ -80,6 +80,10 @@ export PATH=$PATH:$HOME/bin
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 
+export PIP_INDEX_URL=http://192.168.33.66/root/pypi/+simple/
+export PIP_TRUSTED_HOST="http://192.168.33.66"
+
+
 # Stuff I'm not using right now
 # alias nodemon='nodemon -L'
 
