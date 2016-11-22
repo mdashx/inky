@@ -19,7 +19,7 @@
   become: yes
   become_user: root
 
-- name: "Add Docker repo"
+- name: "Add Docker PPA"
   apt_repository: repo='deb http://apt.dockerproject.org/repo ubuntu-xenial main' state=present
   
 - name: apt-get update and apt-get upgrade

@@ -1,2 +1,28 @@
 - name: "Starting role: emacs"
   debug: "msg='Starting role: emacs'"
+
+- name: Add apt-keys (Emacs PPA)
+  command: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 062D648FD62FCE72
+  become: yes
+  become_user: root
+
+- name: Add emacs-snapshot PPA
+  apt_repository: repo='deb http://apt.dockerproject.org/repo ubuntu-xenial main' state=present
+  become: yes
+  become_user: root  
+
+- name: apt-get update and apt-get upgrade
+  apt:  update_cache=yes upgrade=safe
+  become: yes
+  become_user: root
+
+- name: Install Emacs
+  apt:  name=emacs-snapshot state=latest force=yes
+  become: yes
+  become_user: root
+
+- name: install Emacs config
+  git:  repo="git@github.com:mdashx/myemacs.git" dest="/home/{{ user }}/myemacs/"
+
+- name: "Install .emacs.d"
+  command: "mv /home/{{ user }}/myemacs /home/{{ user }}/.emacs.d"
