@@ -9,11 +9,13 @@
     private: yes
     
   roles:
-    - bash
+    - basic
     - emacs
 
 - hosts: python
   roles:
+    - basic
+    - emacs
     - python
 
     
