@@ -1,0 +1,2 @@
+- name: "Starting role: python"
+  debug: "msg='Starting role: python'"

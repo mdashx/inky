@@ -1,0 +1,13 @@
+- name: "Starting role: bash"
+  debug: "msg='Starting role: bash'"
+
+- name: "Copy bashrc"
+  template: src=bashrc.sh dest=$HOME/.bashrc
+
+- user: name="{{ user }}" generate_ssh_key=yes ssh_key_bits=2048 ssh_key_file=$HOME/.ssh/id_rsa
+
+  
+- shell: "bash $HOME/inky/util/add-keys-github.sh"
+  environment:
+    GITHUB_USER: "{{ github_user }}"
+    GITHUB_PASS: "{{ github_pass }}"

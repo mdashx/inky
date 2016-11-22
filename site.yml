@@ -1,0 +1,20 @@
+- hosts: basic
+  vars_prompt:
+  - name: "github_user"
+    prompt: "Enter Github username"
+    private: no
+
+  - name: "github_pass"
+    prompt: "Enter Github password"
+    private: yes
+    
+  roles:
+    - bash
+    - emacs
+
+- hosts: python
+  roles:
+    - python
+
+    
+
