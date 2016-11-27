@@ -21,6 +21,8 @@
 
 - name: "Add Docker PPA"
   apt_repository: repo='deb http://apt.dockerproject.org/repo ubuntu-xenial main' state=present
+  become: yes
+  become_user: root
   
 - name: apt-get update and apt-get upgrade
   apt:  update_cache=yes upgrade=safe
