@@ -1,2 +1,31 @@
 - name: "Starting role: python"
   debug: "msg='Starting role: python'"
+
+- name: Install packages
+  apt:  name={{ item }} state=latest force=yes
+  with_items:
+    - python-dev
+    - python3-dev
+    - libpq-dev
+    - postgresql-client-common
+    - postgresql-client
+    - mysql-client
+    - libmysqlclient-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - python-cffi-backend
+    - python-paramiko
+    - libffi-dev
+    - python-psycopg2
+  become: yes
+  become_user: root
+  
+- name: Install Python packages
+  pip: name={{ item }}
+  with_items:
+    - virtualenv
+    - virtualenvwrapper
+    - cryptography
+    - awscli
+  become: yes
+  become_user: root

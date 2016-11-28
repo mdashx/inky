@@ -14,8 +14,6 @@
 
 - hosts: python
   roles:
-    - basic
-    - emacs
     - python
 
     

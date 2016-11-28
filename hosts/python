@@ -1,5 +1,2 @@
-[basic]
-localhost ansible_connection=local
-
 [python]
 localhost ansible_connection=local

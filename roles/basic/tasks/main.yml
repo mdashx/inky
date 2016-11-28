@@ -29,7 +29,7 @@
   become: yes
   become_user: root
 
-- name: Install packages (git, pip, nginx, emacs, etc.)
+- name: Install packages
   apt:  name={{ item }} state=latest force=yes
   with_items:
     - git
