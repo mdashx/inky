@@ -1,0 +1,37 @@
+- user: name="{{ user }}" generate_ssh_key=yes ssh_key_bits=2048 ssh_key_file=$HOME/.ssh/id_rsa
+
+# http://stackoverflow.com/questions/33359404/ansible-best-practice-for-maintaining-list-of-sudoers
+- name: Make sure we have a 'wheel' group
+  become: yes
+  become_user: root
+  group:
+    name: wheel
+    state: present
+
+- name: Allow 'wheel' group to have passwordless sudo
+  become: yes
+  become_user: root
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+
+- name: Add sudoers users to wheel group
+  become: yes
+  become_user: root
+  user:
+    name: "{{ user }}"
+    groups: wheel
+    append: yes
+
+- name: "Copy bashrc"
+  template: src=bashrc.sh dest="/home/{{ user }}/.bashrc"
+
+- name: "Copy gitconfig"
+  template: src=gitconfig dest="/home/{{ user }}/.gitconfig"
+    
+- shell: "bash $HOME/inky/util/add-keys-github.sh"
+  environment:
+    GITHUB_USER: "{{ github_user }}"
+    GITHUB_PASS: "{{ github_pass }}"

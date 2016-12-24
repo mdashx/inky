@@ -73,11 +73,13 @@ PS1="\u@\h \W$ "
 LS_COLORS=$LS_COLORS:'ow=01;34:' ; export LS_COLORS
 
 export EDITOR=emacs
+alias emacs='emacsclient-snapshot -t'
+# Need alias for emacs (emacs-snaptho --daemon, emacsclient-snapshot -t)
 
 export PATH=$PATH:$HOME/bin
+export PATH=$HOME/.npm-global/bin:$PATH
 
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 
-alias emacs='emacsclient-snapshot -t'
-# Need alias for emacs (emacs-snaptho --daemon, emacsclient-snapshot -t)
+emacs-snapshot --daemon

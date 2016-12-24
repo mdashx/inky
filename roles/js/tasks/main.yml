@@ -1,0 +1,34 @@
+- name: "Starting role: python"
+  debug: "msg='Starting role: python'"
+
+- name: "Add NodeSource repo key"
+  shell: curl --silent https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+
+- name: "Add NodeSource repo"
+  apt_repository: repo='deb https://deb.nodesource.com/node_6.x xenial main' state=present
+  become: yes
+  become_user: root
+
+- name: apt-get update and apt-get upgrade
+  apt:  update_cache=yes upgrade=safe
+  become: yes
+  become_user: root
+  
+- name: Install Node
+  apt:  name={{ item }} state=latest force=yes
+  with_items:
+    - nodejs
+  become: yes
+  become_user: root
+
+- name: "Copy bashrc"
+  template: src=npmrc.sh dest="/home/{{ user }}/.npmrc"
+  become: yes
+  become_user: "{{ user }}"
+
+- name: "Install n"
+  npm:
+    name: n
+    global: yes
+  
+  

@@ -9,12 +9,15 @@
     private: yes
     
   roles:
-    - basic
-    - emacs
+    - setup_user
+    - packages
+    # - emacs
 
 - hosts: python
   roles:
     - python
 
-    
+- hosts: js
+  roles:
+    - js
 
