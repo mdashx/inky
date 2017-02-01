@@ -81,5 +81,3 @@ export PATH=$HOME/.npm-global/bin:$PATH
 
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
-
-emacs-snapshot --daemon

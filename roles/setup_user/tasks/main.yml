@@ -31,7 +31,7 @@
 - name: "Copy gitconfig"
   template: src=gitconfig dest="/home/{{ user }}/.gitconfig"
     
-- shell: "bash $HOME/inky/util/add-keys-github.sh"
-  environment:
-    GITHUB_USER: "{{ github_user }}"
-    GITHUB_PASS: "{{ github_pass }}"
+# - shell: "bash $HOME/inky/util/add-keys-github.sh"
+#   environment:
+#     GITHUB_USER: "{{ github_user }}"
+#     GITHUB_PASS: "{{ github_pass }}"

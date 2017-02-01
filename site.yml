@@ -1,23 +1,25 @@
 - hosts: basic
   vars_prompt:
-  - name: "github_user"
-    prompt: "Enter Github username"
+  - name: "user"
+    prompt: "Enter username"
     private: no
 
-  - name: "github_pass"
-    prompt: "Enter Github password"
-    private: yes
     
   roles:
     - setup_user
     - packages
-    # - emacs
+    - emacs
 
 - hosts: python
   roles:
     - python
 
 - hosts: js
+  vars_prompt:
+  - name: "user"
+    prompt: "Enter username"
+    private: no
+
   roles:
     - js
 
