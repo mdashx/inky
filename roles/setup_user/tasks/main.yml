@@ -1,4 +1,5 @@
-- user: name="{{ user }}" generate_ssh_key=yes ssh_key_bits=2048 ssh_key_file=$HOME/.ssh/id_rsa
+# Creaing SSH key and adding to Github manually for now
+- user: name="{{ user }}" # generate_ssh_key=yes ssh_key_bits=2048 ssh_key_file=$HOME/.ssh/id_rsa
 
 # http://stackoverflow.com/questions/33359404/ansible-best-practice-for-maintaining-list-of-sudoers
 - name: Make sure we have a 'wheel' group
